@@ -67,8 +67,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
     
-    # class meta:
-    #     verbose_name_plural = "Category"
+    class meta:
+        verbose_name_plural = "Category"
     
     def save(self, *args, **kwargs):
         if self.slug == "" or self.slug == None:
