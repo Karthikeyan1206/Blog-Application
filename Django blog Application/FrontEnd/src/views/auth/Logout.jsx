@@ -19,7 +19,7 @@ function Logout() {
                             <div className="card-body p-6">
                                 <div className="mb-4">
                                     <h1 className="mb-1 fw-bold">You have been logged out</h1>
-                                    <span>Thanks for visiing our website, come back anytime!</span>
+                                    <span>Thanks for visiting our website, come back anytime!</span>
                                 </div>
                                 <form className="needs-validation mt-5" noValidate="">
                                     <div className="d-grid d-flex">

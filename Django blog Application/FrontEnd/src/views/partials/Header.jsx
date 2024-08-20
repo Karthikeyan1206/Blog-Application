@@ -5,11 +5,11 @@ import { useAuthStore } from "../../store/auth";
 function Header() {
     const [isLoggedIn, user] = useAuthStore((state) => [state.isLoggedIn, state.user]);
     return (
-        <header className="navbar-dark bg-dark navbar-sticky header-static">
-            <nav className="navbar navbar-expand-lg">
+        <header className="navbar-dark bg-dark navbar-flex header-static">
+            <nav className="main-header navbar navbar-expand-lg">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img className="navbar-brand-item dark-mode-item" src="https://i.postimg.cc/ZRNC1mhM/my-main-logo.png" style={{ width: "200px" }} alt="logo" />
+                        <img className="navbar-brand-item dark-mode-item" src="https://i.postimg.cc/fbLyZBn5/file-11.png" style={{ width: "200px" }} alt="logo" />
                     </Link>
                     <button className="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="h6 d-none d-sm-inline-block text-white">Menu</span>
@@ -97,7 +97,7 @@ function Header() {
                                         <Link to={"/dashboard/"} className="btn btn-secondary" href="dashboard.html">
                                             Dashboard <i className="bi bi-grid-fill"></i>
                                         </Link>
-                                        <Link to={"/logout/"} className="btn btn-danger ms-2" href="dashboard.html">
+                                        <Link to={"/logout/"} className="btn btn-danger " href="dashboard.html">
                                             Logout <i className="fas fa-sign-out-alt"></i>
                                         </Link>
                                     </>

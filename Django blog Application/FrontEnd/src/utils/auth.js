@@ -5,7 +5,7 @@ import { useAuthStore } from "../store/auth";
 import axios from "./axios";
 
 // Importing jwt_decode to decode JSON Web Tokens
-import jwt_decode from "jwt-decode";
+import * as jwt_decode from "jwt-decode";  // Correct import for named export
 
 // Importing the Cookies library to handle browser cookies
 import Cookies from "js-cookie";
@@ -48,7 +48,7 @@ export const login = async (email, password) => {
         // Handling errors and returning data and error information
         return {
             data: null,
-            error: error.response.data?.detail || "Something went wrong",
+            error: error.response?.data?.detail || "Something went wrong",
         };
     }
 };
@@ -79,7 +79,7 @@ export const register = async (full_name, email, password, password2) => {
         // Handling errors and returning data and error information
         return {
             data: null,
-            error: error.response.data || "Something went wrong",
+            error: error.response?.data || "Something went wrong",
         };
     }
 };
@@ -111,8 +111,13 @@ export const setUser = async () => {
 
     // If access token is expired, refresh it; otherwise, set the authenticated user
     if (isAccessTokenExpired(accessToken)) {
-        const response = await getRefreshToken(refreshToken);
-        setAuthUser(response.access, response.refresh);
+        try {
+            const response = await getRefreshToken(refreshToken);
+            setAuthUser(response.access, response.refresh);
+        } catch (error) {
+            console.error("Failed to refresh token:", error);
+            logout();
+        }
     } else {
         setAuthUser(accessToken, refreshToken);
     }
@@ -142,15 +147,19 @@ export const setAuthUser = (access_token, refresh_token) => {
 };
 
 // Function to refresh the access token using the refresh token
-export const getRefreshToken = async () => {
-    // Retrieving refresh token from cookies and making a POST request to refresh the access token
-    const refresh_token = Cookies.get("refresh_token");
-    const response = await axios.post("user/token/refresh/", {
-        refresh: refresh_token,
-    });
+export const getRefreshToken = async (refresh_token) => {
+    try {
+        // Making a POST request to refresh the access token
+        const response = await axios.post("user/token/refresh/", {
+            refresh: refresh_token,
+        });
 
-    // Returning the refreshed access token
-    return response.data;
+        // Returning the refreshed access token
+        return response.data;
+    } catch (error) {
+        console.error("Refresh token request failed:", error);
+        throw error;
+    }
 };
 
 // Function to check if the access token is expired

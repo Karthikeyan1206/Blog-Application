@@ -5,7 +5,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 
 import apiInstance from "../../utils/axios";
 import { useAuthStore } from "../../store/auth";
-import { register } from "../../utils/auth";
+import { register, login } from "../../utils/auth";
 
 function Register() {
     const [bioData, setBioData] = useState({ full_name: "", email: "", password: "", password2: "" });
@@ -51,7 +51,7 @@ function Register() {
             <section className="container d-flex flex-column vh-100" style={{ marginTop: "150px" }}>
                 <div className="row align-items-center justify-content-center g-0 h-lg-100 py-8">
                     <div className="col-lg-5 col-md-8 py-8 py-xl-0">
-                        <div className="card shadow">
+                        <div className="card mb-5">
                             <div className="card-body p-6">
                                 <div className="mb-4">
                                     <h1 className="mb-1 fw-bold">Sign up</h1>
@@ -69,13 +69,19 @@ function Register() {
                                         <label htmlFor="email" className="form-label">
                                             Full Name
                                         </label>
-                                        <input type="text" onChange={handleBioDataChange} value={bioData.full_name} id="full_name" className="form-control" name="full_name" placeholder="John Doe" required="" />
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">🙍‍♂️</span>
+                                            <input type="text" onChange={handleBioDataChange} value={bioData.full_name} id="full_name" className="form-control" name="full_name" placeholder="John Doe" required="" />
+                                        </div>
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="email" className="form-label">
                                             Email Address
                                         </label>
-                                        <input type="email" onChange={handleBioDataChange} value={bioData.email} id="email" className="form-control" name="email" placeholder="johndoe@gmail.com" required="" />
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">✉</span>
+                                            <input type="email" onChange={handleBioDataChange} value={bioData.email} id="email" className="form-control" name="email" placeholder="johndoe@gmail.com" required="" />
+                                        </div>
                                     </div>
 
                                     {/* Password */}
@@ -83,13 +89,19 @@ function Register() {
                                         <label htmlFor="password" className="form-label">
                                             Password
                                         </label>
-                                        <input type="password" onChange={handleBioDataChange} value={bioData.password} id="password" className="form-control" name="password" placeholder="**************" required="" />
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">🔒</span>
+                                            <input type="password" onChange={handleBioDataChange} value={bioData.password} id="password" className="form-control" name="password" placeholder="**************" required="" />
+                                        </div>
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="password" className="form-label">
                                             Confirm Password
                                         </label>
-                                        <input type="password" onChange={handleBioDataChange} value={bioData.password2} id="password" className="form-control" name="password2" placeholder="**************" required="" />
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">🔐</span>
+                                            <input type="password" onChange={handleBioDataChange} value={bioData.password2} id="password" className="form-control" name="password2" placeholder="**************" required="" />
+                                        </div>
                                     </div>
                                     <div>
                                         <div className="d-grid">

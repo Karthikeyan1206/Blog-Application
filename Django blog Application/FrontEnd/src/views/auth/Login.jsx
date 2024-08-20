@@ -22,6 +22,7 @@ function Login() {
 
     const resetForm = () => {
         setBioData({
+            username: "",
             email: "",
             password: "",
         });
@@ -31,25 +32,25 @@ function Login() {
         e.preventDefault();
         setIsLoading(true);
 
-        const { error } = await login(bioData.email, bioData.password);
+        const { error } = await login(bioData.username, bioData.email, bioData.password);
         if (error) {
+            console.log(error); // Log the error for debugging
             alert(JSON.stringify(error));
             resetForm();
         } else {
             navigate("/");
         }
 
-        // Reset isLoading to false when the operation is complete
         setIsLoading(false);
     };
-
+    
     return (
         <>
             <Header />
             <section className="container d-flex flex-column vh-100" style={{ marginTop: "150px" }}>
                 <div className="row align-items-center justify-content-center g-0 h-lg-100 py-8">
                     <div className="col-lg-5 col-md-8 py-8 py-xl-0">
-                        <div className="card shadow">
+                        <div className="card mb-5">
                             <div className="card-body p-6">
                                 <div className="mb-4">
                                     <h1 className="mb-1 fw-bold">Sign in</h1>
@@ -65,10 +66,17 @@ function Login() {
                                     {/* Username */}
                                     <div className="mb-3">
                                         <label htmlFor="email" className="form-label">
+                                            User Name
+                                        </label>
+                                        <input type="username" onChange={handleBioDataChange} value={bioData.username} id="username" className="form-control" name="username" placeholder="johndoe" required="" />
+                                        <div className="invalid-feedback">Please enter valid username.</div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="email" className="form-label">
                                             Email Address
                                         </label>
                                         <input type="email" onChange={handleBioDataChange} value={bioData.email} id="email" className="form-control" name="email" placeholder="johndoe@gmail.com" required="" />
-                                        <div className="invalid-feedback">Please enter valid username.</div>
+                                        <div className="invalid-feedback">Please enter valid email.</div>
                                     </div>
                                     {/* Password */}
                                     <div className="mb-3">

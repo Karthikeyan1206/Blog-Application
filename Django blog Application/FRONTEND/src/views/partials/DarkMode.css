@@ -1,0 +1,58 @@
+/* DarkMode.css
+
+body {
+    background-color: #8A2BE2;  Mid-violet 
+    color: #ffffff;
+}
+
+.dark-mode-enabled {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.form-light-violet {
+    background-color: #E6E6FA; Light violet 
+    color: #000000;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-switch {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.dark-mode-toggle {
+    width: 40px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 20px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.dark-mode-toggle::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.dark-mode-enabled .dark-mode-toggle {
+    background: #333;
+}
+
+.dark-mode-enabled .dark-mode-toggle::before {
+    transform: translateX(20px);
+} */
