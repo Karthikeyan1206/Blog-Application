@@ -76,7 +76,7 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
         
     def post_count(self):
-        return POst.objects.filter(category=self).count()
+        return Post.objects.filter(category=self).count()
         
 class Post(models.Model):
     

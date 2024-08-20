@@ -52,7 +52,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = api_models.Profile
-        fields = "__all__"
+        fields = "__all__"      
         
 class CategorySerializer(serializers.ModelSerializer):
     def get_post_count(self, category):
