@@ -3,6 +3,9 @@ from api import models as api_models
 
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ["title"]}
+    
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["title"]
 
 admin.site.register(api_models.User)
 admin.site.register(api_models.Profile)

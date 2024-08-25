@@ -55,16 +55,16 @@ function Index() {
             <section className="pt-4 pb-0">
                 <div className="container">
                     <div className="row">
-                        {postItems?.map((post, index) => (
-                            <div className="col-sm-6 col-lg-3" key={post?.id}>
+                        {postItems?.map((post, Index) => (
+                            <div className="col-sm-6 col-lg-3" key={post?.id || Index}>
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
                                         <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={post.image} alt="Card" />
                                     </div>
                                     <div className="card-body px-3 pt-3">
                                         <h4 className="card-title">
-                                            <Link to={post.slug} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
-                                                {post.title}
+                                            <Link to={`${post.slug}`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
+                                                {post.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
                                         <button style={{ border: "none", background: "none" }}>
@@ -130,15 +130,15 @@ function Index() {
                                 <h2>Categories</h2>
                             </div>
                             <div className="d-flex flex-wrap justify-content-between">
-                                {category?.map((c) => (
-                                    <div className="mt-2" key={c.id}>
-                                        <div className="card bg-transparent">
-                                            <img className="card-img" src= {c.image} style={{ width: "150px", height: "80px", objectFit: "cover" }} alt="card image" />
-                                            <div className="d-flex flex-column align-items-center mt-3 pb-2">
-                                                <h5 className="mb-0">{c.title}</h5>
-                                                <small>{c.post_count || "0"}</small>
+                                {category?.map((c, Index) => (
+                                    <div className="mt-2" key={c.slug || Index}>
+                                            <div className="card bg-transparent">
+                                                <img className="card-img" src= {c.image} style={{ width: "150px", height: "80px", objectFit: "cover" }} alt="card image" />
+                                                <div className="d-flex flex-column align-items-center mt-3 pb-2">
+                                                    <h5 className="mb-0">{c.title}</h5>
+                                                    <small>{c.post_count || "0"}</small>
+                                                </div>
                                             </div>
-                                        </div>
                                     </div>
                                 ))}
                             </div>

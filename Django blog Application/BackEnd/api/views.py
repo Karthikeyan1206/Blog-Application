@@ -82,9 +82,10 @@ class PostDetailAPIView(generics.RetrieveAPIView):
     def get_object(self):
         slug = self.kwargs['slug']
         post = api_models.Post.objects.get(slug=slug, status="Active")
-        post.view += 1
+        post.views += 1
         post.save()
-        return post            
+        return post
+                    
     
 
 class LikePostAPIView(APIView):
@@ -136,7 +137,7 @@ class PostCommentAPIView(APIView):
         post_id = request.data['post_id']
         name = request.data['name']
         email = request.data['email']
-        comment = request.data['Comment']
+        comment = request.data['comment']
         
         post = api_models.Post.objects.get(id=post_id)
         
