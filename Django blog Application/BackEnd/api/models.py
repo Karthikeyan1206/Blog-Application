@@ -98,6 +98,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name="likes_user")
     slug = models.SlugField(unique=True, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)  # Automatically set the time when created
     
     
     def __str__(self):
