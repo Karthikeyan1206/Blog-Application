@@ -164,7 +164,7 @@ function Index() {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-6 col-lg-3">
-                            <div className="card mb-4">
+                            <div className="card mb-4" >
                                 <div className="card-fold position-relative">
                                     <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/cheerful-loving-couple-bakers-drinking-coffee-PCAVA6B-2.jpg" alt="Card image" />
                                 </div>

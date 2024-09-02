@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../partials/Header";
 import Footer from "../partials/Footer";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 
 import apiInstance from "../../utils/axios";
 import moment from "moment";
@@ -11,8 +11,12 @@ function Detail() {
     const [post, setPost] = useState([]);
     const [tags, setTags] = useState([]);
     const [createComment, setCreateComment] = useState({ full_name: "", email: "", comment: "" });
+    const [readingTime, setReadingTime] = useState(0);
+    const [isReading, setIsReading] = useState(false);
 
     const param = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const fetchPost = async () => {
         const response = await apiInstance.get(`post/detail/${param.slug}/`);
@@ -25,6 +29,52 @@ function Detail() {
     useEffect(() => {
         fetchPost();
     }, []);
+
+    useEffect(() => {
+        const savedReadingTime = localStorage.getItem('readingTime');
+        if (savedReadingTime) {
+            setReadingTime(Number(savedReadingTime));
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            console.log('Saving reading time:', readingTime);
+            localStorage.setItem('readingTime', readingTime);
+            // Set isReading to false when the user is about to leave the page
+            setIsReading(false);
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    useEffect(() => {
+        let timer;
+
+        if (isReading) {
+            timer = setInterval(() => {
+                setReadingTime(prevTime => {
+                    console.log("Reading Time Updated:", prevTime + 1);
+                    return prevTime + 1;
+                });
+            }, 1000); // Update every second
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [isReading]);
+
+    useEffect(() => {
+        setIsReading(true);
+    
+        return () => {
+            setIsReading(false);
+        };
+    }, [location]);
 
     const handleCreateCommentChange = (event) => {
         setCreateComment({
@@ -57,6 +107,11 @@ function Detail() {
             email: "",
             comment: "",
         });
+    };
+
+    const formatTime = (timeInSeconds) => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        return `${minutes} Mins Read`;
     };
 
     return (
@@ -98,7 +153,7 @@ function Detail() {
                                         <i className="fas fa-calendar"></i> {moment(post.date).format("DD MMM, YYYY")}
                                     </li>
                                     <li className="list-inline-item d-lg-block my-lg-2 text-start">
-                                        <i className="fas fa-clock"></i>  {moment(post.time).format("mm")} min read
+                                        <i className="fas fa-clock"></i> {formatTime(readingTime)}
                                     </li>
                                     <li className="list-inline-item d-lg-block my-lg-2 text-start">
                                         <a href="#" className="text-body">

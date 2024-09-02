@@ -21,7 +21,7 @@ function Header() {
                                 <form className="rounded position-relative">
                                     <input className="form-control pe-5 bg-light" type="search" placeholder="Search Articles" aria-label="Search" />
                                     <Link to={"/search/"} className="btn bg-transparent border-0 px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit">
-                                        <i className="bi bi-search fs-5"> </i>
+                                        <i className="fas fa-search fs-5"> </i>
                                     </Link>
                                 </form>
                             </div>
@@ -103,10 +103,10 @@ function Header() {
                                     </>
                                 ) : (
                                     <>
-                                        <Link to={"/register/"} className="btn btn-success" href="dashboard.html">
+                                        <Link to={"/register/"} className="btn btn-dark" href="dashboard.html">
                                             Register <i className="fas fa-user-plus"></i>
                                         </Link>
-                                        <Link to={"/login/"} className="btn btn-success ms-2" href="dashboard.html">
+                                        <Link to={"/login/"} className="btn btn-dark" href="dashboard.html">
                                             Login <i className="fas fa-sign-in-alt"></i>
                                         </Link>
                                     </>

@@ -1,31 +1,48 @@
-// Import the 'create' function from the 'zustand' library.
 import { create } from 'zustand';
-
-// Import the 'mountStoreDevtool' function from the 'simple-zustand-devtools' library.
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
-// Create a custom Zustand store named 'useAuthStore' using the 'create' function.
+// Create a custom Zustand store named 'useAuthStore' with added reading tracking.
 const useAuthStore = create((set, get) => ({
-    // Define the 'allUserData' state variable and initialize it to null.
-    allUserData: null, // Use this to store all user data
+    allUserData: null, // Stores all user data
+    loading: false, // Indicates loading state
+    readingProgress: {}, // Stores reading progress for each blog post
 
-    // Define the 'loading' state variable and initialize it to false.
-    loading: false,
-
-    // Define a function 'user' that returns an object with user-related data.
+    // Get user-related data
     user: () => ({
         user_id: get().allUserData?.user_id || null,
         username: get().allUserData?.username || null,
     }),
 
-    // Define a function 'setUser' that allows setting the 'allUserData' state.
+    // Set user data
     setUser: (user) => set({ allUserData: user }),
 
-    // Define a function 'setLoading' that allows setting the 'loading' state.
+    // Set loading state
     setLoading: (loading) => set({ loading }),
 
-    // Define a function 'isLoggedIn' that checks if 'allUserData' is not null.
+    // Check if user is logged in
     isLoggedIn: () => get().allUserData !== null,
+
+    // Get reading progress for a specific blog post
+    getReadingProgress: (postId) => get().readingProgress[postId] || 0,
+
+    // Update reading progress for a specific blog post
+    updateReadingProgress: (postId, progress) => set(state => ({
+        readingProgress: {
+            ...state.readingProgress,
+            [postId]: progress,
+        }
+    })),
+
+    // Set reading progress from local storage or backend
+    loadReadingProgress: () => {
+        const storedProgress = JSON.parse(localStorage.getItem('readingProgress')) || {};
+        set({ readingProgress: storedProgress });
+    },
+
+    // Save reading progress to local storage or backend
+    saveReadingProgress: () => {
+        localStorage.setItem('readingProgress', JSON.stringify(get().readingProgress));
+    }
 }));
 
 // Conditionally attach the DevTools only in a development environment.
@@ -33,5 +50,4 @@ if (import.meta.env.DEV) {
     mountStoreDevtool('Store', useAuthStore);
 }
 
-// Export the 'useAuthStore' for use in other parts of the application.
 export { useAuthStore };
